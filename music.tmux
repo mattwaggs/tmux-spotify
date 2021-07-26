@@ -7,6 +7,23 @@ get_music_status="#($CURRENT_DIR/scripts/custom_status.sh)"
 
 get_music_status_interpolation="\#{get_music_status}"
 
+get_tmux_option() {
+  local option=$1
+  local default_value=$2
+  local option_value=$(tmux show-option -gqv "$option")
+  if [ -z "$option_value" ]; then
+    echo "$default_value"
+  else
+    echo "$option_value"
+  fi
+}
+
+set_tmux_option() {
+  local option="$1"
+  local value="$2"
+  tmux set-option -gq "$option" "$value"
+}
+
 do_interpolation() {
   local output="$1"
   local output="${output/$get_music_status_interpolation/$get_music_status}"
