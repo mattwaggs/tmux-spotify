@@ -31,7 +31,7 @@ print_music_status() {
   elif [[ "$status" == "paused" ]]; then
     echo "${paused_icon}"
   else
-    echo ""
+    echo 0
   fi
 }
 
