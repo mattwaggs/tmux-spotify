@@ -5,7 +5,6 @@ source "$CURRENT_DIR/helpers.sh"
 
 playing_icon=""
 paused_icon=""
-stopped_icon=""
 
 playing_default="▶︎"
 paused_default="■"
@@ -32,14 +31,13 @@ print_music_status() {
   elif [[ "$status" == "paused" ]]; then
     echo "${paused_icon}"
   else
-    echo "${stopped_icon:-$paused_icon}"
+    echo ""
   fi
 }
 
 update_status_icon() {
   playing_icon=$(get_tmux_option "@spotify_playing_icon" "$playing_default")
   paused_icon=$(get_tmux_option "@spotify_paused_icon" "$paused_default")
-  stopped_icon=$(get_tmux_option "@spotify_stopped_icon" "$paused_default")
 }
 
 main() {
