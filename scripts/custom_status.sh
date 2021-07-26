@@ -1,38 +1,26 @@
 #!/usr/bin/env bash
 
-CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$CURRENT_DIR/helpers.sh"
-source "$CURRENT_DIR/artist.sh"
-source "$CURRENT_DIR/track.sh"
-source "$CURRENT_DIR/status.sh"
-
-music_status() {
+get_music_status() {
+  local prop="${1}"
 read -r -d '' SCRIPT <<END
-set theApp to "$APP"
-
-if application theApp is running then
-  tell application "$APP"
-    return player state as string
+if application "Spotify" is running then
+  tell application "Spotify"
+    if player state is playing then
+      return " ♫  " & (get artist of current track) & ": " & (get name of current track) & " " as Text
+    else
+      return " ♫  " & (get artist of current track) & ": " & (get name of current track) & " " as Text
+    end if
   end tell
 end if
+return ""
 END
 
-osascript -e "${SCRIPT}"
+osascript -e "$(printf "${SCRIPT}")"
 }
 
-print_custom_status() {
-  local status=$(music_status)
-  if [[ "$status" == "playing" || "$status" == "paused" ]]; then
-    echo "$(print_music_status) $(print_artist): $(print_track) "
-  else
-    echo ""
-  fi
-}
 
 main() {
-  print_custom_status
+  get_music_status
 }
 
 main
-
-
