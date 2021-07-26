@@ -7,6 +7,7 @@ artist="#($CURRENT_DIR/scripts/artist.sh)"
 album="#($CURRENT_DIR/scripts/album.sh)"
 track="#($CURRENT_DIR/scripts/track.sh)"
 music_status="#($CURRENT_DIR/scripts/status.sh)"
+music_custom_status="#($CURRENT_DIR/scripts/custom_status.sh)"
 
 artist_interpolation="\#{artist}"
 album_interpolation="\#{album}"
